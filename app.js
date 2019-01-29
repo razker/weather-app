@@ -9,11 +9,16 @@ var app = express();
 async function getData(location) {
 
     try {
+        
         var mswForecast = await msw.getForecast(location);
         console.log(`** Information on ${location} beach **`);
         console.log(mswForecast);
         var temperatureData = await weather.getWeather(location);
         console.log(temperatureData);
+
+        var result = {mswForecast,temperatureData};
+        return result;
+
     }
     catch (error) {
         console.log(`Error: ${JSON.stringify(error)}`);
@@ -23,8 +28,8 @@ async function getData(location) {
 
 
 app.get('/', (req, res) => {
-    getData('dolphin');
-    res.send("RAZ");
+    var result = getData('dolphin');
+    res.send(result);
 });
 
 app.listen(PORT, () => {
