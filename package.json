@@ -5,12 +5,13 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"app.js"
+    "start": "app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.13.1",
+    "express": "^4.16.4",
     "request": "^2.73.0",
     "yargs": "^4.8.1"
   }

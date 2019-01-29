@@ -1,7 +1,37 @@
 const yargs = require('yargs');
 const msw = require('./msw/msw.js');
 const weather = require('./weather/weather.js');
+const express = require('express');
 
+const PORT = process.env.PORT || 3000;
+var app = express();
+
+async function getData(location) {
+
+    try {
+        var mswForecast = await msw.getForecast(location);
+        console.log(`** Information on ${location} beach **`);
+        console.log(mswForecast);
+        var temperatureData = await weather.getWeather(location);
+        console.log(temperatureData);
+    }
+    catch (error) {
+        console.log(`Error: ${JSON.stringify(error)}`);
+    }
+
+}
+
+
+app.get('/', (req, res) => {
+    getData('dolphin');
+    res.send("RAZ");
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is up on port ${PORT}`);
+  });
+
+/*
 const argv = yargs
     .options({
         l: {
@@ -14,6 +44,7 @@ const argv = yargs
     .help()
     .alias('help', 'h')
     .argv;
+*/
 
 //Request using Callback, Promise and yargs
 /*
@@ -35,22 +66,6 @@ msw.getForecast(argv.location, (errorMessage, result) => {
 */
 
 //Using async await
-async function getData(location) {
-
-    try {
-        var mswForecast = await msw.getForecast(location);
-        console.log(`** Information on ${location} beach **`);
-        console.log(mswForecast);
-        var temperatureData = await weather.getWeather(location);
-        console.log(temperatureData);
-    }
-    catch (error) {
-        console.log(`Error: ${JSON.stringify(error)}`);
-    }
-
-}
-
-getData('dolphin');
 
 
 
