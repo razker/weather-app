@@ -34,8 +34,6 @@ msw.getForecast(argv.location, (errorMessage, result) => {
 });
 */
 
-
-//raz
 //Using async await
 async function getData(location) {
 
