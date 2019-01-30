@@ -26,7 +26,6 @@ async function getData(location) {
 
 }
 
-
 app.get('/', async (req, res) => {
     var result = await getData('dolphin');
     res.send(result);
